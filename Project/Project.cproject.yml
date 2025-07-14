@@ -5,6 +5,8 @@ project:
     - group: Source Files
       files:
         - file: ./main.c
+        - file: ./Blinky.c
+        - file: ./vio_MC00_Curiosity_Pro.c
 
   # List components to use for your application.
   # A software component is a re-usable unit that may be configurable.
@@ -13,6 +15,7 @@ project:
     - component: Device:Startup
     - component: ARM::CMSIS:OS Tick:SysTick
     - component: ARM::CMSIS:RTOS2:Keil RTX5&Source
+    - component: ARM::CMSIS Driver:VIO:Custom
 
   # List executable file formats to be generated.
   output:
