@@ -39,6 +39,9 @@ solution:
       debug: off
       optimize: balanced
 
+  define:
+    - USE_CMSIS_INIT
+
   misc:
     - for-compiler: AC6
       C-CPP:
