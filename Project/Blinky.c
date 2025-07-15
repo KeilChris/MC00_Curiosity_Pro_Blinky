@@ -81,9 +81,15 @@ static __NO_RETURN void thrButton (void *argument) {
   Application main thread
  *----------------------------------------------------------------------------*/
 __NO_RETURN void app_main_thread (void *argument) {
+  const osThreadAttr_t attrLED = {
+    .name = "LED_thread",
+  };
+  const osThreadAttr_t attrButton = {
+    .name = "Button_thread",
+  };
 
-  tid_thrLED = osThreadNew(thrLED, NULL, NULL);         // Create LED thread
-  tid_thrButton = osThreadNew(thrButton, NULL, NULL);   // Create Button thread
+  tid_thrLED = osThreadNew(thrLED, NULL, &attrLED);            // Create LED thread
+  tid_thrButton = osThreadNew(thrButton, NULL, &attrButton);   // Create Button thread
 
   for (;;) {                            // Loop forever
   }
@@ -92,9 +98,13 @@ __NO_RETURN void app_main_thread (void *argument) {
 /*-----------------------------------------------------------------------------
   Application initialization
  *----------------------------------------------------------------------------*/
-void app_main (void) {
+int app_main (void) {
+  const osThreadAttr_t attr = {
+    .name = "app_main_thread",
+  };
   osKernelInitialize();                         /* Initialize CMSIS-RTOS2 */
-  osThreadNew(app_main_thread, NULL, NULL);
+  osThreadNew(app_main_thread, NULL, &attr);
   osKernelStart();                              /* Start thread execution */
+  return 0;                                    /* Should never reach here */
 }
 
