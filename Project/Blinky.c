@@ -27,6 +27,12 @@
 static osThreadId_t tid_thrLED;         // Thread id of thread: LED
 static osThreadId_t tid_thrButton;      // Thread id of thread: Button
 
+volatile     uint32_t g_ledSet = 0;     // Variable to store virtual LED value:
+                                        // 0 = LED0 off, slow blinking
+                                        // 1 = LED0 on,  slow blinking
+                                        // 2 = LED0 off, fast blinking
+                                        // 3 = LED0 on,  fast blinking
+
 /*-----------------------------------------------------------------------------
   thrLED: blink LED
  *----------------------------------------------------------------------------*/
@@ -41,15 +47,19 @@ static __NO_RETURN void thrLED (void *argument) {
     }
 
     if (active_flag == 1U) {
-      vioSetSignal(vioLED0, vioLEDon);         // Switch LED0 off
+      vioSetSignal(vioLED0, vioLEDon);         // Switch LED0 on
+      g_ledSet = 3U;                                        // LED0 on, fast blinking
       osDelay(100U);                                  // Delay 100 ms
       vioSetSignal(vioLED0, vioLEDoff);        // Switch LED0 off
+      g_ledSet = 2U;                                        // LED0 off, fast blinking
       osDelay(100U);                                  // Delay 100 ms
     }
     else {
       vioSetSignal(vioLED0, vioLEDon);         // Switch LED0 off
+      g_ledSet = 1U;                                        // LED0 on, slow blinking
       osDelay(500U);                                 // Delay 500 ms
       vioSetSignal(vioLED0, vioLEDoff);        // Switch LED0 off
+      g_ledSet = 0U;                                        // LED0 off, slow blinking
       osDelay(500U);                                  // Delay 500 ms
     }
   }
