@@ -111,7 +111,3 @@ The heap/stack setup and the CMSIS-Driver assignment is in configuration files o
 |:------------------|:------------------------------
 | vioBUTTON0        | User Button SW0
 | vioLED0           | User LED0
-
-#### Embedded video test
-
-[This video should play from 50 s onwards](https://armkeil.blob.core.windows.net/developer/Files/videos/KeilStudio/NXP_Connects_Webinar.mp4?#t=50)
